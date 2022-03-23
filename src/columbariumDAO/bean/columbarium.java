@@ -63,7 +63,7 @@ public class columbarium {
 	}
 	@Override
 	public String toString() {
-		return "靈骨塔資料 鄉鎮市=" + town + ",公立或私立=" + publicOrPrivacy + ", 設施管理者="
+		return "靈骨塔資料 編號:"+number+"鄉鎮市=" + town + ",公立或私立=" + publicOrPrivacy + ", 設施管理者="
 				+ owner + ", 設施名稱=" + facilityName + ", 電話=" + telephone + "\n";
 	}
 	public String getNumber() {

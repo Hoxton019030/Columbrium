@@ -32,6 +32,7 @@ public class columbariumDAOImpl implements columbariumDAO {
 			while (rs.next()) {
 				columbarium c = new columbarium();
 
+				c.setNumber(rs.getString("編號"));
 				c.setTown(rs.getString("鄉鎮市"));
 				c.setPublicOrPrivacy(rs.getString("公立或私立"));
 				c.setOwner(rs.getString("設施管理者"));
