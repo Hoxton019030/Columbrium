@@ -16,6 +16,7 @@ import ConnectSql.MyConnection_withDatabaseImp;
 import SQLSyntax.SQLSyntaxCollection;
 import columbariumDAO.columbariumDAO;
 import columbariumDAO.bean.columbarium;
+import exportCSV.CSV;
 import url.Url;
 
 public class columbariumDAOImpl implements columbariumDAO {
@@ -24,15 +25,15 @@ public class columbariumDAOImpl implements columbariumDAO {
 	public List<columbarium> selectAllColumbarium() {
 		MyConnection_withDatabaseImp myconn = new MyConnection_withDatabaseImp();
 		SQLSyntaxCollection sqlSyntax = new SQLSyntaxCollection();
+		CSV csv = new CSV();
 		List<columbarium> columbariumList = new ArrayList<columbarium>();
 
 		try {
 			Connection conn = myconn.getConnect();
 			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(sqlSyntax.getSQLsystax_findAll());
+			ResultSet rs = stmt.executeQuery(sqlSyntax.getSQLsystax_selectAll());
 			while (rs.next()) {
 				columbarium c = new columbarium();
-
 				c.setNumber(rs.getString("編號"));
 				c.setTown(rs.getString("鄉鎮市"));
 				c.setPublicOrPrivacy(rs.getString("公立或私立"));
@@ -40,13 +41,18 @@ public class columbariumDAOImpl implements columbariumDAO {
 				c.setFacilityName(rs.getString("設施名稱"));
 				c.setTelephone(rs.getString("電話"));
 				columbariumList.add(c);
-
 			}
-			System.out.println(columbariumList);
+//			System.out.println(columbariumList);
+		
+			csv.generateCSVFile(columbariumList);
+			
 
 			myconn.free(conn, stmt, rs);
 
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -55,14 +61,14 @@ public class columbariumDAOImpl implements columbariumDAO {
 	}
 
 	@Override
-	public List<columbarium> selectColumbariums(int i) {
-		String sql = "SELECT [編號]\r\n" + "      ,[鄉鎮市]\r\n" + "      ,[公立或私立]\r\n" + "      ,[設施管理者]\r\n"
-				+ "      ,[設施名稱]\r\n" + "      ,[電話]\r\n" + "  FROM [dbo].[ColumbariumTable]\r\n" + "  WHERE 編號 = ?";
+	public List<columbarium> selectColumbariumByNumber(int i) {
+		SQLSyntaxCollection sqlSyntax = new SQLSyntaxCollection();
+		String sql = sqlSyntax.getSQLsystax_selectByNumber();
 		MyConnection_withDatabaseImp myconn = new MyConnection_withDatabaseImp();
 		Connection conn = myconn.getConnect();
 		List<columbarium> colList = new ArrayList<columbarium>();
-		columbarium c = new columbarium();
 		try {
+			columbarium c = new columbarium();
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, i);
 			ResultSet rs = pstmt.executeQuery();
@@ -74,6 +80,49 @@ public class columbariumDAOImpl implements columbariumDAO {
 			c.setFacilityName(rs.getString("設施名稱"));
 			c.setTelephone(rs.getString("電話"));
 			colList.add(c);
+			myconn.free(conn, pstmt, rs);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(colList);
+
+		return colList;
+
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public List<columbarium> selectColumbariumByTown(String town) {
+		SQLSyntaxCollection sqlSyntax = new SQLSyntaxCollection();
+		String sql = sqlSyntax.getSQLsystax_selectByTown();
+		MyConnection_withDatabaseImp myconn = new MyConnection_withDatabaseImp();
+		CSV csv = new CSV();
+		Connection conn = myconn.getConnect();
+		List<columbarium> colList = new ArrayList<columbarium>();
+		
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, town);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				columbarium c = new columbarium();
+				c.setNumber(rs.getString("編號"));
+				c.setTown(rs.getString("鄉鎮市"));
+				c.setPublicOrPrivacy(rs.getString("公立或私立"));
+				c.setOwner(rs.getString("設施管理者"));
+				c.setFacilityName(rs.getString("設施名稱"));
+				c.setTelephone(rs.getString("電話"));
+				colList.add(c);
+			}
+			try {
+				csv.generateCSVFile(colList);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			myconn.free(conn, pstmt, rs);
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -86,8 +135,101 @@ public class columbariumDAOImpl implements columbariumDAO {
 	}
 
 	@Override
+	public List<columbarium> selectColumbariumByPublicOrPrivacy(String publicOrPrivacy) {
+
+		SQLSyntaxCollection sqlSyntax = new SQLSyntaxCollection();
+		String sql = sqlSyntax.getSQLsystax_selectByPublicOrPrivacy();
+		MyConnection_withDatabaseImp myconn = new MyConnection_withDatabaseImp();
+		CSV csv = new CSV();
+		Connection conn = myconn.getConnect();
+		List<columbarium> colList = new ArrayList<columbarium>();
+		
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, publicOrPrivacy);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				columbarium c = new columbarium();
+				c.setNumber(rs.getString("編號"));
+				c.setTown(rs.getString("鄉鎮市"));
+				c.setPublicOrPrivacy(rs.getString("公立或私立"));
+				c.setOwner(rs.getString("設施管理者"));
+				c.setFacilityName(rs.getString("設施名稱"));
+				c.setTelephone(rs.getString("電話"));
+				colList.add(c);
+			}
+			try {
+				csv.generateCSVFile(colList);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			myconn.free(conn, pstmt, rs);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return colList;
+
+		// TODO Auto-generated method stub
+
+		
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public List<columbarium> selectColumbariumByTelephone(String telephone) {
+
+
+		SQLSyntaxCollection sqlSyntax = new SQLSyntaxCollection();
+		String sql = sqlSyntax.getSQLsystax_selectByTelephone();
+		MyConnection_withDatabaseImp myconn = new MyConnection_withDatabaseImp();
+		CSV csv = new CSV();
+		Connection conn = myconn.getConnect();
+		List<columbarium> colList = new ArrayList<columbarium>();
+		
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, telephone);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				columbarium c = new columbarium();
+				c.setNumber(rs.getString("編號"));
+				c.setTown(rs.getString("鄉鎮市"));
+				c.setPublicOrPrivacy(rs.getString("公立或私立"));
+				c.setOwner(rs.getString("設施管理者"));
+				c.setFacilityName(rs.getString("設施名稱"));
+				c.setTelephone(rs.getString("電話"));
+				colList.add(c);
+			}
+			try {
+				csv.generateCSVFile(colList);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			myconn.free(conn, pstmt, rs);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return colList;
+
+		// TODO Auto-generated method stub
+
+		
+		// TODO Auto-generated method stub
+	}
+
+	@Override
 	public boolean addJsoncolumbarium() {
-		String sql = "INSERT INTO[dbo].[ColumbariumTable] VALUES(?,?,?,?,?)";
+		SQLSyntaxCollection sqlSyntax = new SQLSyntaxCollection();
+
+		String sql = sqlSyntax.getSQLsystax_addJsonData();
 		boolean succeed = false;
 		MyConnection_withDatabaseImp myconn = new MyConnection_withDatabaseImp();
 		Connection conn = myconn.getConnect();
@@ -100,7 +242,7 @@ public class columbariumDAOImpl implements columbariumDAO {
 
 			for (int i = 0; i < jArray.length(); i++) {
 				PreparedStatement pstmt = conn.prepareStatement(sql);
-				
+
 				columbarium col = new columbarium();
 				JSONObject jObject = jArray.getJSONObject(i);
 				String town = jObject.getString("鄉鎮市");
@@ -135,10 +277,13 @@ public class columbariumDAOImpl implements columbariumDAO {
 
 	@Override
 	public boolean addcolumbarium(columbarium c) {
-		String sql = "INSERT INTO[dbo].[ColumbariumTable] VALUES(?,?,?,?,?)\r\n" + "";
-		boolean succeed = false;
+		SQLSyntaxCollection sqlsyntax = new SQLSyntaxCollection();
 		MyConnection_withDatabaseImp myconn = new MyConnection_withDatabaseImp();
 		Connection conn = myconn.getConnect();
+
+		String sql = sqlsyntax.getSQLsystax_add();
+		boolean succeed = false;
+
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, c.getTown());
@@ -149,6 +294,7 @@ public class columbariumDAOImpl implements columbariumDAO {
 			int count = pstmt.executeUpdate();
 			if (count > 1) {
 				succeed = true;
+
 			}
 			return succeed;
 		} catch (SQLException e) {
@@ -161,11 +307,13 @@ public class columbariumDAOImpl implements columbariumDAO {
 
 	@Override
 	public boolean updateColumbarium(columbarium c) {
-		String sql = "UPDATE [dbo].[ColumbariumTable]\r\n" + "   SET [鄉鎮市] = ?" + "      ,[公立或私立] = ?"
-				+ "      ,[設施管理者] = ?" + "      ,[設施名稱] = ?" + "      ,[電話] = ?" + " WHERE 編號=?";
-		boolean succeed = false;
+		SQLSyntaxCollection sqlsyntax = new SQLSyntaxCollection();
 		MyConnection_withDatabaseImp myconn = new MyConnection_withDatabaseImp();
 		Connection conn = myconn.getConnect();
+
+		String sql = sqlsyntax.getSQLsystax_update();
+		boolean succeed = false;
+
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, c.getTown());
@@ -189,10 +337,13 @@ public class columbariumDAOImpl implements columbariumDAO {
 
 	@Override
 	public boolean deleteColumbarium(int columbariumid) {
-		String sql = "DELETE FROM [dbo].[ColumbariumTable]\r\n" + "      WHERE 編號=? ";
-		boolean succeed = false;
+		SQLSyntaxCollection sqlsyntax = new SQLSyntaxCollection();
 		MyConnection_withDatabaseImp myconn = new MyConnection_withDatabaseImp();
 		Connection conn = myconn.getConnect();
+
+		String sql = sqlsyntax.getSQLsystax_delete();
+		boolean succeed = false;
+
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, columbariumid);
@@ -209,18 +360,6 @@ public class columbariumDAOImpl implements columbariumDAO {
 
 		// TODO Auto-generated method stub
 		return succeed;
-	}
-
-	@Override
-	public columbarium selectColumbariums() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public columbarium selectColumbariums(String s) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

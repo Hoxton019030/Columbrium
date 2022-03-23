@@ -6,14 +6,13 @@ import java.sql.Statement;
 
 import ConnectSql.MyConnection;
 import ConnectSql.MyConnection_withDatabaseImp;
+import SQLSyntax.SQLSyntaxCollection;
 
 public class Table {
 
 	public void createTable() {
-
-		String sql = "USE Columbarium\r\n" + "Create table ColumbariumTable\r\n"
-				+ "(編號 int NOT NULL IDENTITY PRIMARY KEY,\r\n" + "鄉鎮市 varchar(10),\r\n" + "公立或私立 varchar(10),\r\n"
-				+ "設施管理者 varchar(50),\r\n" + "設施名稱 varchar(50),\r\n" + "電話 char(12)\r\n" + ")";
+		SQLSyntaxCollection sqlSyntax = new SQLSyntaxCollection();
+		String sql = sqlSyntax.getSQLsystax_createTable();
 		try {
 			MyConnection myconn = new MyConnection_withDatabaseImp();
 			Connection conn = myconn.getConnect();
