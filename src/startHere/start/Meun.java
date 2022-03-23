@@ -10,12 +10,12 @@ public class Meun {
 	public void createStartMeun() {
 		Meun meun = new Meun();
 		Scanner scn = new Scanner(System.in);
-		System.out.println("想做什麼呢?請輸入[1-5]來進入選單。");
+		System.out.println("想做什麼呢?請輸入[0-5]來進入選單。");
 		System.out.println("1.新增資料。");
 		System.out.println("2.查詢資料。");
 		System.out.println("3.更新資料。");
 		System.out.println("4.刪除資料。");
-		System.out.println("5.離開");
+		System.out.println("0.離開");
 
 		int i = scn.nextInt();
 		switch (i) {
@@ -27,7 +27,12 @@ public class Meun {
 		case 3:
 			meun.createUpdateMeun();
 			break;
-			
+		case 4:
+			meun.createDeleteMenu();
+			break;
+		case 0:
+			meun.createLeaveMenu();
+			break;
 		}
 
 	}
@@ -77,6 +82,11 @@ public class Meun {
 		System.out.println("你想刪掉第幾筆資料呢?");
 		int NumberOfDelete = scn.nextInt();
 		cDAO.deleteColumbarium(NumberOfDelete);
-		System.out.println("第" + NumberOfDelete + "筆資料已經刪除。");
+		System.out.println("編號" + NumberOfDelete + "的資料已經刪除。");
+		
+	}
+	
+	public void createLeaveMenu() {
+		System.out.println("離開此程式。");
 	}
 }

@@ -12,10 +12,11 @@ public class Test {
 		Meun meun = new Meun();
 		columbariumDAO cDAO = new columbariumDAOImpl();
 		columbarium c = new columbarium();
-//		meun.createUpdateMeun();
-		System.out.println(cDAO.selectColumbariums(2));
-		System.out.println(123);
-
+//		meun.createUpd ateMeun();
+//		System.out.println(cDAO.selectColumbariums(2));
+//		System.out.println(123);
+//		meun.createDeleteMenu();
+meun.createDeleteMenu();
 
 		
 		

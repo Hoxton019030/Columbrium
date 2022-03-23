@@ -13,6 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import ConnectSql.MyConnection_withDatabaseImp;
+import SQLSyntax.SQLSyntaxCollection;
 import columbariumDAO.columbariumDAO;
 import columbariumDAO.bean.columbarium;
 import url.Url;
@@ -22,13 +23,13 @@ public class columbariumDAOImpl implements columbariumDAO {
 	@Override
 	public List<columbarium> selectAllColumbarium() {
 		MyConnection_withDatabaseImp myconn = new MyConnection_withDatabaseImp();
-		String sql = "SELECT * \r\n" + "  FROM [Columbarium].[dbo].[ColumbariumTable]";
+		SQLSyntaxCollection sqlSyntax = new SQLSyntaxCollection();
 		List<columbarium> columbariumList = new ArrayList<columbarium>();
 
 		try {
 			Connection conn = myconn.getConnect();
 			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
+			ResultSet rs = stmt.executeQuery(sqlSyntax.getSQLsystax_findAll());
 			while (rs.next()) {
 				columbarium c = new columbarium();
 
@@ -99,7 +100,7 @@ public class columbariumDAOImpl implements columbariumDAO {
 
 			for (int i = 0; i < jArray.length(); i++) {
 				PreparedStatement pstmt = conn.prepareStatement(sql);
-
+				
 				columbarium col = new columbarium();
 				JSONObject jObject = jArray.getJSONObject(i);
 				String town = jObject.getString("鄉鎮市");
