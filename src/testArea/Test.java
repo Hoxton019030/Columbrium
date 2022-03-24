@@ -20,16 +20,15 @@ public class Test {
 		columbarium c = new columbarium();
 		CSV csv = new CSV();
 //		meun.createUpd ateMeun();
-//		System.out.println(cDAO.selectColumbariums(2));
+		System.out.println(cDAO.selectAllColumbarium());
 //		System.out.println(123);
 //		meun.createDeleteMenu();
 //      meun.createDeleteMenu();
 //		meun.createStartMeun();
 //		test.test3();
 //		cDAO.selectAllColumbarium();
-		test.updateTest();
-	
-		
+//		test.updateTest();
+
 //		try {
 //			csv.generateCSVFile(cDAO.selectAllColumbarium());
 //		} catch (JSONException e) {
@@ -37,23 +36,23 @@ public class Test {
 //			e.printStackTrace();
 //		}
 //		cDAO.selectAllColumbarium();
-		
+
 	}
-		public void test3(){
-			columbarium c = new columbarium();
-			CSV csv = new CSV();
-			List<columbarium> colList = new ArrayList<columbarium>();
-			
-			c.setFacilityName("1");
-			c.setNumber("2");
-			c.setOwner("3");
-			c.setPublicOrPrivacy("公立");
-			c.setTelephone("4");
-			c.setTown("5");
-			colList.add(c);
-			System.out.println(colList);
-		}
-	
+
+	public void test3() {
+		columbarium c = new columbarium();
+		CSV csv = new CSV();
+		List<columbarium> colList = new ArrayList<columbarium>();
+
+		c.setFacilityName("1");
+		c.setNumber("2");
+		c.setOwner("3");
+		c.setPublicOrPrivacy("公立");
+		c.setTelephone("4");
+		c.setTown("5");
+		colList.add(c);
+		System.out.println(colList);
+	}
 
 //		cDAO.selectColumbariums(1);ㄉ
 //		meun.createCreateMeun();
