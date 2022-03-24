@@ -15,17 +15,17 @@ public class SQLSyntaxCollection {
 			+ "      ,[設施名稱]\r\n"
 			+ "      ,[電話]\r\n"
 			+ "  FROM [Columbarium].[dbo].[ColumbariumTable]\r\n"
-			+ "  WHERE 鄉鎮市 = ? ";
+			+ "  WHERE 鄉鎮市 LIKE ? ";
 	private String SQLsystax_selectByPublicOrPrivacy = "SELECT [編號]\r\n" + "      ,[鄉鎮市]\r\n" + "      ,[公立或私立]\r\n"
 			+ "      ,[設施管理者]\r\n" + "      ,[設施名稱]\r\n" + "      ,[電話]\r\n"
-			+ "  FROM [dbo].[ColumbariumTable] WHERE 公立或私立 = ? ";
+			+ "  FROM [dbo].[ColumbariumTable] WHERE 公立或私立 LIKE ? ";
 	private String SQLsystax_selectByTelephone = "SELECT [編號],[鄉鎮市],[公立或私立],[設施管理者],[設施名稱],[電話] FROM [Columbarium].[dbo].[ColumbariumTable] WHERE 電話　LIKE ? ";
 
 	private String SQLsystax_update = "UPDATE [dbo].[ColumbariumTable]\r\n" + "   SET [鄉鎮市] = ?" + "      ,[公立或私立] = ?"
 			+ "      ,[設施管理者] = ?" + "      ,[設施名稱] = ?" + "      ,[電話] = ?" + " WHERE 編號=?";
 
 	private String SQLsystax_delete = "DELETE FROM [dbo].[ColumbariumTable]      WHERE 編號= ? ";
-	private String SQLsystax_addJsonData = "\"INSERT INTO[dbo].[ColumbariumTable] VALUES(?,?,?,?,?)\"";
+	private String SQLsystax_addJsonData = "INSERT INTO[dbo].[ColumbariumTable] VALUES( ? , ? , ? , ?,  ? )";
 	private String SQLsystax_createDatabase = "CREATE DATABASE Columbarium ";
 	private String SQLsystax_dropDatabase = "Drop DATABASE Columbarium ";
 	private String SQLsystax_createTable ="USE Columbarium\r\n" + "Create table ColumbariumTable\r\n"

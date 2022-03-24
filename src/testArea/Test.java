@@ -27,6 +27,7 @@ public class Test {
 //		meun.createStartMeun();
 //		test.test3();
 //		cDAO.selectAllColumbarium();
+		test.updateTest();
 	
 		
 //		try {
@@ -76,7 +77,7 @@ public class Test {
 		columbariumDAO cDAO = new columbariumDAOImpl();
 		columbarium fakeColumbarium = new columbarium();
 
-		fakeColumbarium.setTown("紐約");
+		fakeColumbarium.setTown("公立");
 		fakeColumbarium.setPublicOrPrivacy("私人");
 		fakeColumbarium.setOwner("紐約公所");
 		fakeColumbarium.setFacilityName("市立公墓");
@@ -97,12 +98,13 @@ public class Test {
 	public void updateTest() {
 		columbariumDAO cDAO = new columbariumDAOImpl();
 		columbarium fakeColumbarium = new columbarium();
-		fakeColumbarium.setTown("大屌");
-		fakeColumbarium.setPublicOrPrivacy("大屌");
+		fakeColumbarium.setTown("公立");
+		fakeColumbarium.setPublicOrPrivacy("公立");
 		fakeColumbarium.setOwner("大屌");
 		fakeColumbarium.setFacilityName("大屌");
-		fakeColumbarium.setFacilityName("大屌");
-		fakeColumbarium.setNumber("45");
+		fakeColumbarium.setTelephone("大屌");
+		fakeColumbarium.setNumber("1");
+		System.out.println(fakeColumbarium);
 
 		cDAO.updateColumbarium(fakeColumbarium);
 		System.out.println("資料已變更");

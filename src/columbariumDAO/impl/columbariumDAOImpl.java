@@ -96,14 +96,17 @@ public class columbariumDAOImpl implements columbariumDAO {
 	@Override
 	public List<columbarium> selectColumbariumByTown(String town) {
 		SQLSyntaxCollection sqlSyntax = new SQLSyntaxCollection();
-		String sql = sqlSyntax.getSQLsystax_selectByTown();
 		MyConnection_withDatabaseImp myconn = new MyConnection_withDatabaseImp();
 		CSV csv = new CSV();
+		String sql = sqlSyntax.getSQLsystax_selectByTown();
+		
 		Connection conn = myconn.getConnect();
 		List<columbarium> colList = new ArrayList<columbarium>();
 		
+		
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
+			town="%"+town+"%"; //正則表達式 
 			pstmt.setString(1, town);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
@@ -146,6 +149,7 @@ public class columbariumDAOImpl implements columbariumDAO {
 		
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
+			publicOrPrivacy = "%"+publicOrPrivacy+"%";
 			pstmt.setString(1, publicOrPrivacy);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
@@ -185,10 +189,12 @@ public class columbariumDAOImpl implements columbariumDAO {
 
 		SQLSyntaxCollection sqlSyntax = new SQLSyntaxCollection();
 		String sql = sqlSyntax.getSQLsystax_selectByTelephone();
+		telephone="%"+telephone+"%";
 		MyConnection_withDatabaseImp myconn = new MyConnection_withDatabaseImp();
 		CSV csv = new CSV();
 		Connection conn = myconn.getConnect();
 		List<columbarium> colList = new ArrayList<columbarium>();
+		
 		
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);

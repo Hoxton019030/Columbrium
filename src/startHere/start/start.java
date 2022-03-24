@@ -11,7 +11,7 @@ public class start {
 		System.out.println("目前資料表中的資料為");
 
 		columbariumDAO cDAO = new columbariumDAOImpl();
-//		cDAO.selectAllColumbarium();
+		System.out.println(cDAO.selectAllColumbarium());
 		meun.createStartMeun();
 	}
 }
