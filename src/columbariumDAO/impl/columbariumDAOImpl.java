@@ -226,9 +226,6 @@ public class columbariumDAOImpl implements columbariumDAO {
 		return colList;
 
 		// TODO Auto-generated method stub
-
-		
-		// TODO Auto-generated method stub
 	}
 
 	@Override

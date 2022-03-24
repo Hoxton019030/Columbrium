@@ -19,5 +19,8 @@ public class BeforeStart {
 		table.createTable();
 //		3.增加json檔案
 		cDAO.addJsoncolumbarium();
+		
+		
+		
 	}
 }

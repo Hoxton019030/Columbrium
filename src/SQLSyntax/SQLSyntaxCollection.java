@@ -8,6 +8,7 @@ public class SQLSyntaxCollection {
 	private String SQLsystax_selectByNumber = "SELECT [編號]\r\n" + "      ,[鄉鎮市]\r\n" + "      ,[公立或私立]\r\n"
 			+ "      ,[設施管理者]\r\n" + "      ,[設施名稱]\r\n" + "      ,[電話]\r\n" + "  FROM [dbo].[ColumbariumTable]\r\n"
 			+ "  WHERE 編號 = ?";
+	
 	private String SQLsystax_selectByTown = "SELECT  [編號]\r\n"
 			+ "      ,[鄉鎮市]\r\n"
 			+ "      ,[公立或私立]\r\n"
@@ -16,6 +17,7 @@ public class SQLSyntaxCollection {
 			+ "      ,[電話]\r\n"
 			+ "  FROM [Columbarium].[dbo].[ColumbariumTable]\r\n"
 			+ "  WHERE 鄉鎮市 LIKE ? ";
+	
 	private String SQLsystax_selectByPublicOrPrivacy = "SELECT [編號]\r\n" + "      ,[鄉鎮市]\r\n" + "      ,[公立或私立]\r\n"
 			+ "      ,[設施管理者]\r\n" + "      ,[設施名稱]\r\n" + "      ,[電話]\r\n"
 			+ "  FROM [dbo].[ColumbariumTable] WHERE 公立或私立 LIKE ? ";

@@ -17,6 +17,8 @@ public class Meun {
 
 	public void createStartMeun() {
 		Scanner scn = new Scanner(System.in);
+		columbariumDAOImpl cDAO = new columbariumDAOImpl();
+		System.out.println(cDAO.selectAllColumbarium());
 		System.out.println("想做什麼呢?請輸入[0-4]來進入選單。");
 		System.out.println("1.新增資料。");
 		System.out.println("2.查詢資料。");
