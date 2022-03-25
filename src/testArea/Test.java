@@ -9,6 +9,7 @@ import columbariumDAO.columbariumDAO;
 import columbariumDAO.bean.columbarium;
 import columbariumDAO.impl.columbariumDAOImpl;
 import exportCSV.CSV;
+import method.Table.Table;
 import startHere.start.Meun;
 
 public class Test {
@@ -20,13 +21,15 @@ public class Test {
 		columbarium c = new columbarium();
 		CSV csv = new CSV();
 //		meun.createUpd ateMeun();
-		System.out.println(cDAO.selectAllColumbarium());
+//		System.out.println(cDAO.selectAllColumbarium());
+		Table table = new Table();
+		table.dropTable();
 //		System.out.println(123);
 //		meun.createDeleteMenu();
 //      meun.createDeleteMenu();
 //		meun.createStartMeun();
 //		test.test3();
-//		cDAO.selectAllColumbarium();
+//		System.out.println(cDAO.selectAllColumbarium());
 //		test.updateTest();
 
 //		try {
